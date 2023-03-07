@@ -1,32 +1,51 @@
 "use strict";
 
 const $ = (selector) => document.querySelector(selector);
+const $$ = (selector) => document.getElementById(selector);
 
 const postalRegEx =
   /^[ABCEGHJ-NPRSTVXY]\d[ABCEGHJ-NPRSTV-Z][ -]?\d[ABCEGHJ-NPRSTV-Z]\d$/i;
 
 const onReset = (evt) => {
-  //TODO:: Reset the reset-able fields
+  evt.preventDefault();
+  $("#notifications").checked = true;
+  $("#off").checked = true;
+  $("#location").value = "";
+  $("#temperature").value = "";
 };
 
 const onSubmit = (evt) => {
   //TODO::Reset any errors before submitting
 
-  //TODO:: Set notifications since it doesn't need to be validated
+  let notifications = $("#notifications").checked;
+  $$("setting_notifications").textContent = notifications ? "On" : "Off";
 
-  //TODO:: Set lighting mode with a for loop since it doesn't need to be validated
+  let lighting = document.querySelectorAll("[name='lighting_mode']");
+  for (let i = 0; i < lighting.length; i++) {
+    if (lighting[i].checked) {
+      $$("setting_lighting_mode").textContent = lighting[i].value;
+    }
+  }
 
   //TODO:: Validate the postal code with the Regular Expression,
   //TODO:: Display an error if not valid
+  let location = $("#location").value;
+  if(postalRegEx.test(location)){
+    $$("setting_lighting_mode").textContent = location;
+    $$("location_error").textContent = "Postal Code is good :)";
 
-  //TODO:: Validate the temperature by checking the range and if it's a number
-  //TODO:: Display an error if not valid
+  }else{
+    $$("location_error").textContent = "Please enter a valid postal Code >:(";
 
-  evt.preventDefault();
+  }
+    //TODO:: Validate the temperature by checking the range and if it's a number
+    //TODO:: Display an error if not valid
+
+    evt.preventDefault();
 };
 
 document.addEventListener("DOMContentLoaded", () => {
-  //TODO:: Add current date
-  //TODO:: Add Reset Form listener
-  //TODO:: Add Submit Form listener
+  $("#date_display").textContent = new Date().toDateString();
+  $("#reset_form").addEventListener("click", onReset);
+  $("#update_settings").addEventListener("click", onSubmit);
 });
