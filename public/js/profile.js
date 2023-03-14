@@ -10,17 +10,29 @@ const passwordRegEx = /^(?=.*?[A-Z])(?=.*?[a-z]).{8,}$/;
 
 const time = new Date();
 
+//Reset error spans
+const resetErrors = ()=>{
+  $("#name_error").textContent = "";
+  $("#email_error").textContent = "";
+  $("#password_error").textContent = "";
+  $("#dob_error").textContent = "";
+};
+
 //Reset Button
 const onReset = (evt) => {
+  resetErrors9();
   $("#first_name").value = "";
   $("#last_name").value = "";
   $("#email").value = "";
   $("#dob").value = "";
   $("#password").value = "";
-
+  $("#confirm_password").value = "";
 };
 
+//Submit Button
 const onSubmit = (evt) => {
+  resetErrors();
+
   //Submission field errors
   let formErrors = false;
   //Check First and Last name
@@ -56,35 +68,21 @@ const onSubmit = (evt) => {
     $$("password").textContent = ("");
     $$("confirm_password").textContent = ("");
   }else{
-    $$("password_error").textContent = "Sharing it with everyone on your contact list now;)";
+    $$("password_error").textContent = "Sharing it with everyone on your contact list now!";
   }
     
   //Check that the birthday is less than the current time
   let birthday = new Date($("#dob").value);
   let birthdaySent = $("#dob").value;
-  let birthDay2 = birthday.getDay();
-  let birthMonth = birthday.getMonth();
-  let birthYear = birthday.getFullYear();
-  let checkDay = time.getDay();
-  let checkMonth = time.getMonth();
-  let checkYear = time.getFullYear();
-  if(birthYear>checkYear){
-    formErrors = true;
-    $$("dob_error").textContent = "You havn't been born yet?";
-    $$("dob").value = "";
-  }else if(birthMonth>checkMonth){
-    formErrors = true;
-    $$("dob_error").textContent = "You havn't been born yet?";
-    $$("dob").value = "";
-  }else if(birthDay2>checkDay){
+  if(birthday.setHours(0,0,0,0)>time && birthday != ""){
     formErrors = true;
     $$("dob_error").textContent = "You havn't been born yet?";
     $$("dob").value = "";
   }else{
-    $$("dob_error").textContent = "Wait when was it again?";
+    $$("dob_error").textContent = "Forgetting your birthday now! :)";
   }
   //Check for error flags and Send all info
-  if(formErrors == false){
+  if(!formErrors){
     $$("user_first_name").textContent = firstName;
     $$("user_last_name").textContent = lastName;
     $$("user_email").textContent = email;
