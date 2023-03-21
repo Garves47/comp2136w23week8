@@ -3,6 +3,7 @@
 const $ = (selector) => document.querySelector(selector);
 const $$ = (selector) => document.getElementById(selector);
 
+const 
 
 const emailRegEx = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
 
@@ -64,7 +65,7 @@ const onSubmit = (evt) => {
     $$("confirm_password").textContent = ("");
   }else if(password1 != password2){
     formErrors = true;
-    $$("password_error").textContent = "Please make sure both passwords match";
+    $$("password_error2").textContent = "Please make sure both passwords match";
     $$("password").textContent = ("");
     $$("confirm_password").textContent = ("");
   }else{
@@ -83,11 +84,14 @@ const onSubmit = (evt) => {
   }
   //Check for error flags and Send all info
   if(!formErrors){
+
     $$("user_first_name").textContent = firstName;
     $$("user_last_name").textContent = lastName;
     $$("user_email").textContent = email;
     $$("user_dob").textContent = birthdaySent;
     $$("user_password_last_changed").textContent = new Date().toDateString();
+  }else{
+
   }
   evt.preventDefault();
 };

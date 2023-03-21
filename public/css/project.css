@@ -36,6 +36,18 @@ span {
     font-weight: bold;
 }
 
+.error-box {
+    border: 3px solid red;
+}
+
+.success-box{
+    border: 3px solid green;
+}
+
+.hidden{
+    display: none;
+}
+
 label {
     font-size: 12px;
 }

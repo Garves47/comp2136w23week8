@@ -21,3 +21,7 @@ app.get("/profile", (req, res) => {
 app.get("/math", (req, res) => {
   res.sendFile(path.resolve(__dirname + "/views/", "math.html"));
 });
+
+app.get("/profile2", (req, res) => {
+  res.sendFile(path.resolve(__dirname + "/views/", "profile2.html"));
+});
